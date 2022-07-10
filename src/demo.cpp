@@ -24,7 +24,7 @@ SOFTWARE.
 #include <sstream>
 #include <permutation>
 
-auto combiner_function(const ya::combiner_iterator_list_t<int>& iterator_list) -> std::string {
+auto combiner_function(const ya::combiner_iterator_list_t<int>& iterator_list) -> std::optional<std::string> {
     std::stringstream ss{};
     for(auto& it : iterator_list)
         ss << *it;

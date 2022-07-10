@@ -24,6 +24,7 @@ SOFTWARE.
 #define YAPERMUTATION_PERMUTATION_H
 #include <numeric>
 #include <vector>
+#include <optional>
 
 namespace ya {
     struct _n_digit_num_t {
@@ -46,7 +47,7 @@ namespace ya {
     template<typename T>
     using combiner_iterator_list_t = std::vector<combiner_iterator_t<T>>;
     template<typename R, typename T>
-    using combiner_funct_t = R(*)(const combiner_iterator_list_t<T>&);
+    using combiner_funct_t = std::optional<R>(*)(const combiner_iterator_list_t<T>&);
 
     template<typename T, typename R>
     auto generate_permutations(const std::vector<std::vector<T>>& input, combiner_funct_t<R,T> combiner) -> std::vector<R> {
@@ -69,7 +70,9 @@ namespace ya {
             c.clear();
             for(size_t j = 0; j < tt.number.size(); j++)
                 c.push_back(input[j].begin() + tt.number[j]);
-            result.push_back(combiner(c));
+            auto x = combiner(c);
+            if(x)
+                result.push_back(*x);
             ++tt;
         }
         return result;
