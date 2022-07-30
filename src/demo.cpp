@@ -33,7 +33,8 @@ auto combiner_function(const ya::combiner_iterator_list_t<int>& iterator_list) -
 
 int main(int argc, char** argv) {
     std::vector<std::vector<int>> binary_choices = {{0,1},{0,1},{0,1}};
-    auto permutations = ya::generate_permutations(binary_choices, combiner_function);
+    ya::combiner_funct_t<std::string, int> x = combiner_function;
+    auto permutations = ya::generate_permutations(binary_choices, x);
     for(auto& perm : permutations)
         std::cout << perm << std::endl;
     return 0;

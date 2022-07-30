@@ -47,10 +47,10 @@ namespace ya {
     template<typename T>
     using combiner_iterator_list_t = std::vector<combiner_iterator_t<T>>;
     template<typename R, typename T>
-    using combiner_funct_t = std::optional<R>(*)(const combiner_iterator_list_t<T>&);
+    using combiner_funct_t = std::function<std::optional<R>(const combiner_iterator_list_t<T>&)>;
 
     template<typename T, typename R>
-    auto generate_permutations(const std::vector<std::vector<T>>& input, combiner_funct_t<R,T> combiner) -> std::vector<R> {
+    auto generate_permutations(const std::vector<std::vector<T>>& input, combiner_funct_t<R,T> combiner) {
         std::vector<size_t> m{}; m.reserve(input.size());
         std::vector<size_t> n{}; n.reserve(input.size());
         for(auto& v : input) {
