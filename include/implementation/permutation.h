@@ -32,12 +32,13 @@ namespace ya {
         std::vector<size_t> number;
         _n_digit_num_t(std::vector<size_t>&& m, std::vector<size_t>&& n) : max_digits{std::move(m)}, number{std::move(n)} {}
         void operator++() {
-            for(size_t i = number.size()-1; i >= 0; i--) {
-                if(number[i] < max_digits[i]) {
-                    number[i]++;
+            for(size_t i = number.size(); i > 0; i--) {
+                auto j = i-1;
+                if(number[j] < max_digits[j]) {
+                    number[j]++;
                     break;
                 }
-                number[i] = 0;
+                number[j] = 0;
             }
         }
     };
